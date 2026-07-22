@@ -1,0 +1,26 @@
+Daystars Inc,
+
+Make the hero section brighter, bigger text, stand out.
+
+* Online Intake form
+* Insurance Verification Workflow
+
+mBUQ6Djn87SJIvmRA6UbLTqqmjS0LWXtiAERMwDW
+
+Snowflake Explorer
+
+
+const response = await fetch('https://your-store-name.myshopify.com/admin/oauth/access_token', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: new URLSearchParams({
+    client_id: 'YOUR_CLIENT_ID',
+    client_secret: 'YOUR_CLIENT_SECRET',
+    grant_type: 'client_credentials'
+  })
+});
+
+const data = await response.json();
+console.log('Admin Access Token:', data.access_token);
