@@ -155,7 +155,7 @@ export default function ServiceDetail() {
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
                   <h3 className="font-display font-semibold text-gray-900 mb-4 text-base">Other Services</h3>
                   <div className="space-y-3">
-                    {otherServices.map((s, i) => {
+                    {otherServices.map((s) => {
                       const OtherIcon = iconMap[s.icon] || Brain;
                       const otherStyle = iconStyles[allServices.findIndex(a => a.id === s.id) % 3];
                       return (

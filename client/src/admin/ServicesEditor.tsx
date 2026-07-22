@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api, { fetchServices } from '../api/client';
 import type { Service } from '../api/client';
-import { Plus, Trash2, Save, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Trash2, Save, X } from 'lucide-react';
 
 const ICONS = ['Brain', 'ClipboardList', 'Heart', 'Car', 'Utensils', 'Users', 'Search', 'Shield', 'Star', 'Activity'];
 
