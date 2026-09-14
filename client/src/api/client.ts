@@ -24,6 +24,7 @@ export interface Service {
   bullet_points: string; // JSON string array
   who_it_helps: string;
   coming_soon: number; // 0 or 1
+  slug: string;
 }
 
 export interface TeamMember {

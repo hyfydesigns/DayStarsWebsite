@@ -114,6 +114,13 @@ try { db.exec(`ALTER TABLE services ADD COLUMN long_description TEXT DEFAULT ''`
 try { db.exec(`ALTER TABLE services ADD COLUMN bullet_points TEXT DEFAULT '[]'`); } catch {}
 try { db.exec(`ALTER TABLE services ADD COLUMN who_it_helps TEXT DEFAULT ''`); } catch {}
 try { db.exec(`ALTER TABLE services ADD COLUMN coming_soon INTEGER DEFAULT 0`); } catch {}
+try { db.exec(`ALTER TABLE services ADD COLUMN slug TEXT DEFAULT ''`); } catch {}
+
+// Backfill slugs for any rows missing them
+const makeSlug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const missingSlug = db.prepare("SELECT id, title FROM services WHERE slug = '' OR slug IS NULL").all() as { id: number; title: string }[];
+const updateSlug = db.prepare('UPDATE services SET slug = ? WHERE id = ?');
+for (const row of missingSlug) updateSlug.run(makeSlug(row.title), row.id);
 
 // Seed services
 const serviceCount = (db.prepare('SELECT COUNT(*) as c FROM services').get() as { c: number }).c;
@@ -135,8 +142,8 @@ if (serviceCount === 0) {
     { title: 'Discharge & Transition Planning', icon: 'CheckCircle', sort_order: 14, coming_soon: 0, description: 'We help clients transition between levels of care and connect with appropriate ongoing services when they are ready to step down from intensive treatment.', image_url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80&auto=format&fit=crop', long_description: 'We help clients transition between levels of care and connect with appropriate ongoing services when they are ready to step down from intensive treatment.', bullet_points: JSON.stringify(['Transition planning between levels of care','Connection to ongoing outpatient services','Community support coordination','Step-down planning from intensive treatment','Continuity of care after discharge']), who_it_helps: 'Clients who are ready to transition out of intensive treatment and need support connecting to appropriate ongoing care and community resources.' },
     { title: 'Substance Use & Recovery Services', icon: 'Leaf', sort_order: 15, coming_soon: 1, description: 'Integrated substance use treatment and recovery support services addressing co-occurring mental health and addiction needs. Coming soon to Daystars.', image_url: 'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=1200&q=80&auto=format&fit=crop', long_description: 'Mental health and substance use disorders frequently co-occur, and treating each in isolation limits recovery. Daystars is expanding to offer integrated substance use and recovery services — combining evidence-based addiction treatment with our existing behavioral health expertise. This service will provide a unified, whole-person approach to healing.', bullet_points: JSON.stringify(['Integrated dual-diagnosis treatment','Substance use assessments and counseling','Recovery support and relapse prevention','Peer support and community connection','Coordinated with existing mental health services']), who_it_helps: 'Adults with co-occurring substance use disorders and mental health conditions who need integrated, coordinated treatment for both.' },
   ];
-  const insert = db.prepare('INSERT INTO services (title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
-  for (const s of services) insert.run(s.title, s.description, s.icon, s.sort_order, s.image_url, s.long_description, s.bullet_points, s.who_it_helps, s.coming_soon);
+  const insert = db.prepare('INSERT INTO services (title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, slug) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+  for (const s of services) insert.run(s.title, s.description, s.icon, s.sort_order, s.image_url, s.long_description, s.bullet_points, s.who_it_helps, s.coming_soon, makeSlug(s.title));
 }
 
 // Seed team

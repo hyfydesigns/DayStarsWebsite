@@ -220,7 +220,7 @@ export default function Home() {
               );
               return service.coming_soon
                 ? <div key={service.id}>{card}</div>
-                : <Link key={service.id} to={`/services/${service.id}`} className="block">{card}</Link>;
+                : <Link key={service.id} to={`/services/${service.slug}`} className="block">{card}</Link>;
             })}
           </div>
           <div className="text-center mt-10">

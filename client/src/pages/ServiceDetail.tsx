@@ -16,16 +16,16 @@ const iconStyles = [
 ];
 
 export default function ServiceDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const [service, setService] = useState<Service | null>(null);
   const [allServices, setAllServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
+    if (!slug) return;
     setLoading(true);
-    Promise.all([fetchService(id), fetchServices()]).then(([svc, all]) => {
+    Promise.all([fetchService(slug), fetchServices()]).then(([svc, all]) => {
       setService(svc);
       setAllServices(all);
       setLoading(false);
@@ -160,7 +160,7 @@ export default function ServiceDetail() {
                       const OtherIcon = iconMap[s.icon] || Brain;
                       const otherStyle = iconStyles[allServices.findIndex(a => a.id === s.id) % 3];
                       return (
-                        <Link key={s.id} to={`/services/${s.id}`} className="flex items-center gap-3 group">
+                        <Link key={s.id} to={`/services/${s.slug}`} className="flex items-center gap-3 group">
                           <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${otherStyle.bg} transition-transform group-hover:scale-105`}>
                             <OtherIcon size={18} className="text-white" strokeWidth={1.75} />
                           </div>

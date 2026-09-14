@@ -74,7 +74,7 @@ export default function Services() {
               );
               return service.coming_soon
                 ? <div key={service.id}>{card}</div>
-                : <Link key={service.id} to={`/services/${service.id}`}>{card}</Link>;
+                : <Link key={service.id} to={`/services/${service.slug}`}>{card}</Link>;
             })}
           </div>
         </div>

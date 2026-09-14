@@ -9,23 +9,33 @@ router.get('/', (_req: Request, res: Response): void => {
   res.json(services);
 });
 
-router.get('/:id', (req: Request, res: Response): void => {
-  const service = db.prepare('SELECT * FROM services WHERE id = ?').get(req.params.id);
+router.get('/:slug', (req: Request, res: Response): void => {
+  const { slug } = req.params;
+  // Support lookup by slug (SEO) or numeric id (legacy/admin)
+  const service = /^\d+$/.test(slug)
+    ? db.prepare('SELECT * FROM services WHERE id = ?').get(slug)
+    : db.prepare('SELECT * FROM services WHERE slug = ?').get(slug);
   if (!service) { res.status(404).json({ error: 'Not found' }); return; }
   res.json(service);
 });
 
+function makeSlug(title: string): string {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 router.post('/', verifyToken, (req: Request, res: Response): void => {
   const { title, description, icon, sort_order = 0, image_url = '', long_description = '', bullet_points = '[]', who_it_helps = '', coming_soon = 0 } = req.body;
-  const result = db.prepare('INSERT INTO services (title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon);
-  res.json({ id: result.lastInsertRowid, title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon });
+  const slug = makeSlug(title);
+  const result = db.prepare('INSERT INTO services (title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, slug) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, slug);
+  res.json({ id: result.lastInsertRowid, title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, slug });
 });
 
 router.put('/:id', verifyToken, (req: Request, res: Response): void => {
   const { id } = req.params;
   const { title, description, icon, sort_order, image_url = '', long_description = '', bullet_points = '[]', who_it_helps = '', coming_soon = 0 } = req.body;
-  db.prepare('UPDATE services SET title=?, description=?, icon=?, sort_order=?, image_url=?, long_description=?, bullet_points=?, who_it_helps=?, coming_soon=? WHERE id=?').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, id);
-  res.json({ id: Number(id), title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon });
+  const slug = makeSlug(title);
+  db.prepare('UPDATE services SET title=?, description=?, icon=?, sort_order=?, image_url=?, long_description=?, bullet_points=?, who_it_helps=?, coming_soon=?, slug=? WHERE id=?').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, slug, id);
+  res.json({ id: Number(id), title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, slug });
 });
 
 router.delete('/:id', verifyToken, (req: Request, res: Response): void => {

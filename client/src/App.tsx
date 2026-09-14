@@ -38,7 +38,7 @@ export default function App() {
           {/* Public site */}
           <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
           <Route path="/services" element={<PublicLayout><Services /></PublicLayout>} />
-          <Route path="/services/:id" element={<PublicLayout><ServiceDetail /></PublicLayout>} />
+          <Route path="/services/:slug" element={<PublicLayout><ServiceDetail /></PublicLayout>} />
           <Route path="/about" element={<PublicLayout><About /></PublicLayout>} />
           <Route path="/faqs" element={<PublicLayout><FAQs /></PublicLayout>} />
           <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
