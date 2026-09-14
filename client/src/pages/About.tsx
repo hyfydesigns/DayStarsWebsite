@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
-import { fetchContent, fetchTeam } from '../api/client';
-import type { SiteContent, TeamMember } from '../api/client';
+import { fetchContent } from '../api/client';
+import type { SiteContent } from '../api/client';
 import { CheckCircle, Award, Heart } from 'lucide-react';
 
 export default function About() {
   const [content, setContent] = useState<SiteContent>({});
-  const [team, setTeam] = useState<TeamMember[]>([]);
 
   useEffect(() => {
-    Promise.all([fetchContent(), fetchTeam()]).then(([c, t]) => {
-      setContent(c);
-      setTeam(t);
-    });
+    fetchContent().then(setContent);
   }, []);
 
   const c = content;
