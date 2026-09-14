@@ -66,9 +66,7 @@ export default function Services() {
                       )}
                     </div>
                     <p className="text-gray-500 leading-relaxed text-sm">{service.description}</p>
-                    {!service.coming_soon && (
-                      <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-3 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>
-                    )}
+                    <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-3 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>
                   </div>
                 </div>
               );

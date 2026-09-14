@@ -215,7 +215,7 @@ export default function Home() {
                     {!!service.coming_soon && <span className="text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full">Soon</span>}
                   </div>
                   <p className="text-gray-500 text-sm leading-relaxed">{service.description}</p>
-                  {!service.coming_soon && <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-4 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>}
+                  <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-4 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>
                 </div>
               );
               return <Link key={service.id} to={`/services/${service.slug}`} className="block">{card}</Link>;
