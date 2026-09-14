@@ -10,7 +10,7 @@ router.get('/', (_req: Request, res: Response): void => {
 });
 
 router.get('/:slug', (req: Request, res: Response): void => {
-  const { slug } = req.params;
+  const slug = req.params.slug as string;
   // Support lookup by slug (SEO) or numeric id (legacy/admin)
   const service = /^\d+$/.test(slug)
     ? db.prepare('SELECT * FROM services WHERE id = ?').get(slug)
