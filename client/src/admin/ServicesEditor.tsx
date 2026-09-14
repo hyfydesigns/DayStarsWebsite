@@ -9,7 +9,7 @@ type EditingService = Omit<Service, 'id'> & { id?: number };
 
 const blank = (): EditingService => ({
   title: '', description: '', icon: 'Brain', sort_order: 0,
-  image_url: '', long_description: '', bullet_points: '[]', who_it_helps: '', coming_soon: 0,
+  image_url: '', long_description: '', bullet_points: '[]', who_it_helps: '', coming_soon: 0, slug: '',
 });
 
 export default function ServicesEditor() {

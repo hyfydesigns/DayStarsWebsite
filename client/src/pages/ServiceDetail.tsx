@@ -30,7 +30,7 @@ export default function ServiceDetail() {
       setAllServices(all);
       setLoading(false);
     }).catch(() => navigate('/services'));
-  }, [id]);
+  }, [slug]);
 
   if (loading) {
     return (
