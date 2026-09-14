@@ -80,15 +80,16 @@ export default function Services() {
       <section className="py-20 lg:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl font-bold text-gray-900 mb-4">Accepted Diagnoses</h2>
-          <p className="text-gray-500 mb-10">We provide care for adults with any chronic mental illness, including:</p>
-          <div className="grid sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
-            {['Major Depression', 'Bipolar Disorder', 'Schizophrenia', 'Schizoaffective Disorder', 'Co-occurring Substance Abuse', 'Other Chronic Mental Illness'].map(d => (
+          <p className="text-gray-500 mb-10">We provide behavioral-health services for individuals experiencing a wide range of concerns, including:</p>
+          <div className="grid sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto mb-8">
+            {['Depression', 'Anxiety', 'Mood-related concerns', 'Bipolar disorder', 'Psychotic symptoms', 'Schizophrenia-spectrum disorders', 'Difficulty managing emotions or behaviors', 'Social and interpersonal challenges', 'Difficulty functioning independently', 'Adjustment and life-transition challenges', 'Other behavioral-health concerns'].map(d => (
               <div key={d} className="flex items-center gap-3 bg-primary-50 rounded-xl px-5 py-4">
                 <div className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0" />
                 <span className="text-primary-800 font-medium text-sm">{d}</span>
               </div>
             ))}
           </div>
+          <p className="text-gray-400 text-sm max-w-2xl mx-auto">Services are provided based on clinical assessment, eligibility, program requirements, and individual treatment needs.</p>
         </div>
       </section>
 
