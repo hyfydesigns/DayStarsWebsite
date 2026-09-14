@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Brain, ClipboardList, Heart, Car, Utensils, Users, Search, Shield, Quote, Phone, CheckCircle } from 'lucide-react';
+import { ArrowRight, Brain, ClipboardList, Heart, Users, Search, Shield, Quote, Phone, CheckCircle, Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Globe, Leaf } from 'lucide-react';
 import { fetchContent, fetchServices, fetchTestimonials } from '../api/client';
 import type { SiteContent, Service, Testimonial } from '../api/client';
 
 const iconMap: Record<string, React.ElementType> = {
-  Brain, ClipboardList, Heart, Car, Utensils, Users, Search, Shield,
+  Brain, ClipboardList, Heart, Users, Search, Shield,
+  Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Phone, Globe, Leaf, CheckCircle,
 };
 
 // Cycles through logo brand colors
@@ -204,16 +205,22 @@ export default function Home() {
             {services.map((service, i) => {
               const Icon = iconMap[service.icon] || Brain;
               const style = iconStyles[i % 3];
-              return (
-                <Link key={service.id} to={`/services/${service.id}`} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 group hover:-translate-y-1 block">
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 ${style.bg} ${style.shadow} transition-transform duration-300 group-hover:scale-110`}>
+              const card = (
+                <div className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 group transition-all duration-300 ${service.coming_soon ? 'opacity-75' : 'hover:shadow-lg hover:-translate-y-1'}`}>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 ${style.bg} ${style.shadow} transition-transform duration-300 ${!service.coming_soon && 'group-hover:scale-110'}`}>
                     <Icon size={32} className="text-white" strokeWidth={1.75} />
                   </div>
-                  <h3 className="font-display font-bold text-gray-900 text-base mb-2">{service.title}</h3>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-display font-bold text-gray-900 text-base">{service.title}</h3>
+                    {!!service.coming_soon && <span className="text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full">Soon</span>}
+                  </div>
                   <p className="text-gray-500 text-sm leading-relaxed">{service.description}</p>
-                  <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-4 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>
-                </Link>
+                  {!service.coming_soon && <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-4 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>}
+                </div>
               );
+              return service.coming_soon
+                ? <div key={service.id}>{card}</div>
+                : <Link key={service.id} to={`/services/${service.id}`} className="block">{card}</Link>;
             })}
           </div>
           <div className="text-center mt-10">

@@ -16,16 +16,16 @@ router.get('/:id', (req: Request, res: Response): void => {
 });
 
 router.post('/', verifyToken, (req: Request, res: Response): void => {
-  const { title, description, icon, sort_order = 0, image_url = '', long_description = '', bullet_points = '[]', who_it_helps = '' } = req.body;
-  const result = db.prepare('INSERT INTO services (title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps);
-  res.json({ id: result.lastInsertRowid, title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps });
+  const { title, description, icon, sort_order = 0, image_url = '', long_description = '', bullet_points = '[]', who_it_helps = '', coming_soon = 0 } = req.body;
+  const result = db.prepare('INSERT INTO services (title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon);
+  res.json({ id: result.lastInsertRowid, title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon });
 });
 
 router.put('/:id', verifyToken, (req: Request, res: Response): void => {
   const { id } = req.params;
-  const { title, description, icon, sort_order, image_url = '', long_description = '', bullet_points = '[]', who_it_helps = '' } = req.body;
-  db.prepare('UPDATE services SET title=?, description=?, icon=?, sort_order=?, image_url=?, long_description=?, bullet_points=?, who_it_helps=? WHERE id=?').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, id);
-  res.json({ id: Number(id), title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps });
+  const { title, description, icon, sort_order, image_url = '', long_description = '', bullet_points = '[]', who_it_helps = '', coming_soon = 0 } = req.body;
+  db.prepare('UPDATE services SET title=?, description=?, icon=?, sort_order=?, image_url=?, long_description=?, bullet_points=?, who_it_helps=?, coming_soon=? WHERE id=?').run(title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon, id);
+  res.json({ id: Number(id), title, description, icon, sort_order, image_url, long_description, bullet_points, who_it_helps, coming_soon });
 });
 
 router.delete('/:id', verifyToken, (req: Request, res: Response): void => {

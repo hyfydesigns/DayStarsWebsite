@@ -3,13 +3,13 @@ import api, { fetchServices } from '../api/client';
 import type { Service } from '../api/client';
 import { Plus, Trash2, Save, X } from 'lucide-react';
 
-const ICONS = ['Brain', 'ClipboardList', 'Heart', 'Car', 'Utensils', 'Users', 'Search', 'Shield', 'Star', 'Activity'];
+const ICONS = ['Brain', 'Activity', 'ClipboardList', 'Pill', 'Stethoscope', 'MessageCircle', 'Shield', 'Users', 'Network', 'FileText', 'Phone', 'Heart', 'Globe', 'CheckCircle', 'Leaf', 'Search'];
 
 type EditingService = Omit<Service, 'id'> & { id?: number };
 
 const blank = (): EditingService => ({
   title: '', description: '', icon: 'Brain', sort_order: 0,
-  image_url: '', long_description: '', bullet_points: '[]', who_it_helps: '',
+  image_url: '', long_description: '', bullet_points: '[]', who_it_helps: '', coming_soon: 0,
 });
 
 export default function ServicesEditor() {
@@ -98,6 +98,11 @@ export default function ServicesEditor() {
                 </div>
               </div>
 
+              <label className="flex items-center gap-3 cursor-pointer select-none">
+                <input type="checkbox" checked={!!editing.coming_soon} onChange={e => setEditing(s => s && ({ ...s, coming_soon: e.target.checked ? 1 : 0 }))} className="w-4 h-4 rounded accent-amber-500" />
+                <span className="text-sm font-medium text-gray-700">Mark as <span className="text-amber-600">Coming Soon</span> <span className="text-gray-400 font-normal">(shows badge, disables link)</span></span>
+              </label>
+
               {/* Detail page fields */}
               <div className="border-t border-gray-100 pt-5">
                 <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Detail Page Content</p>
@@ -163,7 +168,10 @@ export default function ServicesEditor() {
               <tr key={s.id} className="hover:bg-gray-50 transition-colors">
                 <td className="px-5 py-4 text-gray-400">{s.sort_order}</td>
                 <td className="px-5 py-4">
-                  <div className="font-medium text-gray-900">{s.title}</div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-gray-900">{s.title}</span>
+                    {!!s.coming_soon && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">Coming Soon</span>}
+                  </div>
                   <div className="text-gray-400 text-xs mt-0.5 line-clamp-1">{s.description}</div>
                 </td>
                 <td className="px-5 py-4 hidden md:table-cell">

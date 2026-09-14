@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Brain, ClipboardList, Heart, Car, Utensils, Users, Search, Shield, Phone, ArrowRight } from 'lucide-react';
+import { Brain, ClipboardList, Heart, Users, Search, Shield, Phone, ArrowRight, Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Globe, Leaf, CheckCircle } from 'lucide-react';
 import { fetchServices } from '../api/client';
 import type { Service } from '../api/client';
 
 const iconMap: Record<string, React.ElementType> = {
-  Brain, ClipboardList, Heart, Car, Utensils, Users, Search, Shield,
+  Brain, ClipboardList, Heart, Users, Search, Shield,
+  Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Phone, Globe, Leaf, CheckCircle,
 };
 
 const iconStyles = [
@@ -52,18 +53,28 @@ export default function Services() {
             {services.map((service, i) => {
               const Icon = iconMap[service.icon] || Brain;
               const style = iconStyles[i % 3];
-              return (
-                <Link key={service.id} to={`/services/${service.id}`} className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex gap-6 group hover:-translate-y-1">
-                  <div className={`w-20 h-20 rounded-2xl flex items-center justify-center flex-shrink-0 ${style.bg} ${style.shadow} transition-transform duration-300 group-hover:scale-105`}>
+              const card = (
+                <div className={`bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex gap-6 group transition-all duration-300 ${service.coming_soon ? 'opacity-75' : 'hover:shadow-lg hover:-translate-y-1'}`}>
+                  <div className={`w-20 h-20 rounded-2xl flex items-center justify-center flex-shrink-0 ${style.bg} ${style.shadow} transition-transform duration-300 ${!service.coming_soon && 'group-hover:scale-105'}`}>
                     <Icon size={38} className="text-white" strokeWidth={1.5} />
                   </div>
-                  <div className="pt-1">
-                    <h3 className="font-display font-bold text-gray-900 text-lg mb-2">{service.title}</h3>
+                  <div className="pt-1 flex-1">
+                    <div className="flex items-start gap-2 mb-2">
+                      <h3 className="font-display font-bold text-gray-900 text-lg leading-tight">{service.title}</h3>
+                      {!!service.coming_soon && (
+                        <span className="flex-shrink-0 mt-0.5 text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full border border-amber-200">Coming Soon</span>
+                      )}
+                    </div>
                     <p className="text-gray-500 leading-relaxed text-sm">{service.description}</p>
-                    <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-3 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>
+                    {!service.coming_soon && (
+                      <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-3 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>
+                    )}
                   </div>
-                </Link>
+                </div>
               );
+              return service.coming_soon
+                ? <div key={service.id}>{card}</div>
+                : <Link key={service.id} to={`/services/${service.id}`}>{card}</Link>;
             })}
           </div>
         </div>

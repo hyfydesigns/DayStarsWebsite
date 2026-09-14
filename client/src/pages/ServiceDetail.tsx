@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Brain, ClipboardList, Heart, Car, Utensils, Users, Search, Shield, ArrowLeft, ArrowRight, CheckCircle, Phone, HelpCircle } from 'lucide-react';
+import { Brain, ClipboardList, Heart, Users, Search, Shield, ArrowLeft, ArrowRight, CheckCircle, Phone, HelpCircle, Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Globe, Leaf } from 'lucide-react';
 import { fetchService, fetchServices } from '../api/client';
 import type { Service } from '../api/client';
 
 const iconMap: Record<string, React.ElementType> = {
-  Brain, ClipboardList, Heart, Car, Utensils, Users, Search, Shield,
+  Brain, ClipboardList, Heart, Users, Search, Shield,
+  Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Phone, Globe, Leaf, CheckCircle,
 };
 
 const iconStyles = [

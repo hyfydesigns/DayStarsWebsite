@@ -23,6 +23,7 @@ export interface Service {
   long_description: string;
   bullet_points: string; // JSON string array
   who_it_helps: string;
+  coming_soon: number; // 0 or 1
 }
 
 export interface TeamMember {
