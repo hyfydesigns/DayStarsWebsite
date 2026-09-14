@@ -126,34 +126,44 @@ export default function About() {
       </section>
 
       {/* Team */}
-      {team.length > 0 && (
-        <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-14">
-              <span className="text-primary-600 text-sm font-semibold uppercase tracking-wider">Our People</span>
-              <h2 className="font-display text-3xl font-bold text-gray-900 mt-2">Leadership Team</h2>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {team.map(member => (
-                <div key={member.id} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary-400 to-teal-400 flex items-center justify-center mx-auto mb-4">
-                    {member.image_url ? (
-                      <img src={member.image_url} alt={member.name} className="w-20 h-20 rounded-full object-cover" />
-                    ) : (
-                      <span className="text-white text-2xl font-bold font-display">
-                        {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="font-display font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <div className="text-primary-600 text-sm font-medium mb-3">{member.title}</div>
-                  {member.bio && <p className="text-gray-500 text-sm leading-relaxed">{member.bio}</p>}
-                </div>
-              ))}
-            </div>
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <span className="text-primary-600 text-sm font-semibold uppercase tracking-wider">Our People</span>
+            <h2 className="font-display text-3xl font-bold text-gray-900 mt-2">Our Team</h2>
           </div>
-        </section>
-      )}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { role: 'Chief Executive Officer (CEO)', desc: 'Provides executive leadership and oversees the organization\'s strategic direction, operations, and growth.' },
+              { role: 'Chief Financial Officer (CFO)', desc: 'Oversees financial operations, financial planning, accounting, and organizational financial management.' },
+              { role: 'Program Director / Licensed Professional Counselor (LPC)', desc: 'Provides clinical and program leadership, oversees behavioral-health programming, supports treatment planning, and provides therapeutic services.' },
+              { role: 'Medical Director — MD/DO', desc: 'Provides medical oversight and consultation for the organization\'s behavioral-health services.' },
+              { role: 'Psychiatric Provider — NP/PMHNP', desc: 'Provides psychiatric assessments, medication evaluation/management, follow-up, and ongoing psychiatric care as appropriate.' },
+              { role: 'Licensed Professional Counselor — LPC/LPC-S', desc: 'Provides individual and/or group therapy, clinical assessments, treatment planning, and behavioral-health interventions.' },
+              { role: 'Therapists', desc: 'Provide individual and group therapeutic services focused on symptom management, coping skills, emotional wellness, relationships, and personal goals.' },
+              { role: 'Registered Nurses — RN', desc: 'Provide nursing assessments, health monitoring, medication-related support, education, and coordination with healthcare providers as appropriate.' },
+              { role: 'Case Managers', desc: 'Help clients navigate healthcare and community resources, coordinate services, address barriers to care, and work toward individualized goals.' },
+              { role: 'Behavioral Health / Mental Health Technicians', desc: 'Provide program support, assist with structured activities and skills development, monitor client needs, and support a safe therapeutic environment.' },
+              { role: 'Clinical Supervisor', desc: 'Provides clinical oversight, supervision, quality assurance, and support for the clinical team.' },
+              { role: 'Intake / Admissions Coordinator', desc: 'Coordinates referrals, intake processes, scheduling, eligibility information, and admission-related communication.' },
+              { role: 'Care Coordinator', desc: 'Supports communication and coordination among clients, families, providers, and community resources.' },
+              { role: 'Utilization Review / Authorization Specialist', desc: 'Supports authorization, utilization review, payer requirements, and coordination related to covered services.' },
+              { role: 'Billing & Insurance Specialist', desc: 'Supports insurance verification, claims, billing processes, and communication regarding coverage and reimbursement.' },
+              { role: 'Quality Assurance / Compliance Coordinator', desc: 'Supports quality monitoring, documentation standards, regulatory compliance, and continuous improvement.' },
+              { role: 'Peer Support Specialist', desc: 'Provides recovery-oriented support based on lived experience and helps clients connect with appropriate resources.' },
+              { role: 'Substance Use Counselor', desc: 'Future role supporting substance-use and recovery services as those services become available.', comingSoon: true },
+            ].map(({ role, desc, comingSoon }) => (
+              <div key={role} className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ${comingSoon ? 'opacity-70' : ''}`}>
+                <div className="flex items-start gap-2 mb-2">
+                  <h3 className="font-display font-bold text-gray-900 text-base leading-snug">{role}</h3>
+                  {comingSoon && <span className="flex-shrink-0 mt-0.5 text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full border border-amber-200">Coming Soon</span>}
+                </div>
+                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
