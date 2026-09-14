@@ -218,9 +218,7 @@ export default function Home() {
                   {!service.coming_soon && <span className="inline-flex items-center gap-1 text-primary-600 text-sm font-semibold mt-4 group-hover:gap-2 transition-all">Learn more <ArrowRight size={13} /></span>}
                 </div>
               );
-              return service.coming_soon
-                ? <div key={service.id}>{card}</div>
-                : <Link key={service.id} to={`/services/${service.slug}`} className="block">{card}</Link>;
+              return <Link key={service.id} to={`/services/${service.slug}`} className="block">{card}</Link>;
             })}
           </div>
           <div className="text-center mt-10">

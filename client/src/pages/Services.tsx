@@ -72,9 +72,7 @@ export default function Services() {
                   </div>
                 </div>
               );
-              return service.coming_soon
-                ? <div key={service.id}>{card}</div>
-                : <Link key={service.id} to={`/services/${service.slug}`}>{card}</Link>;
+              return <Link key={service.id} to={`/services/${service.slug}`}>{card}</Link>;
             })}
           </div>
         </div>

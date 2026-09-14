@@ -87,6 +87,16 @@ export default function ServiceDetail() {
         </div>
       </section>
 
+      {/* Coming Soon banner */}
+      {!!service.coming_soon && (
+        <div className="bg-amber-50 border-b border-amber-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-3">
+            <span className="flex-shrink-0 bg-amber-400 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">Coming Soon</span>
+            <p className="text-amber-800 text-sm">This service is not yet available. We're working to bring it to you — check back soon or <Link to="/contact" className="font-semibold underline hover:text-amber-900">contact us</Link> to learn more.</p>
+          </div>
+        </div>
+      )}
+
       {/* Body */}
       <section className="py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
