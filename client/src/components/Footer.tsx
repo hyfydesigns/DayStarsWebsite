@@ -67,7 +67,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2 text-gray-400">
                 <Clock size={15} className="mt-0.5 flex-shrink-0 text-primary-400" />
-                <span>Available 24/7</span>
+                <span>24/7 Crisis Support Line</span>
               </li>
             </ul>
           </div>

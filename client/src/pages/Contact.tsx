@@ -40,7 +40,7 @@ export default function Contact() {
             We're Here to Help
           </h1>
           <p className="text-primary-100 text-lg max-w-2xl mx-auto">
-            Ready to take the first step? Our caring team is available 24/7 to answer your questions and guide you through the enrollment process.
+            Ready to take the first step? Contact us to learn more about our services and the enrollment process. Our 24/7 crisis support line is available for clients who need behavioral-health support outside of regular business hours.
           </p>
         </div>
       </section>

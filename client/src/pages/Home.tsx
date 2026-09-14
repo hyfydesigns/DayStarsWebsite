@@ -90,7 +90,7 @@ export default function Home() {
               {[
                 { value: '500+', label: 'Clients Served' },
                 { value: '19+', label: 'Years of Service' },
-                { value: '24/7', label: 'Always Available' },
+                { value: '24/7', label: 'Crisis Support Line' },
               ].map(stat => (
                 <div key={stat.label} className="flex items-center gap-3">
                   <div className="text-2xl font-display font-extrabold text-white">{stat.value}</div>
@@ -178,7 +178,7 @@ export default function Home() {
                   </div>
                   <div className="bg-white/10 rounded-xl p-4">
                     <div className="text-3xl font-bold">24/7</div>
-                    <div className="text-primary-200 text-sm">Availability</div>
+                    <div className="text-primary-200 text-sm">Crisis Support</div>
                   </div>
                 </div>
               </div>
@@ -263,8 +263,11 @@ export default function Home() {
           <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">
             Ready to Take the First Step?
           </h2>
-          <p className="text-primary-100 text-lg mb-10 max-w-2xl mx-auto">
-            Our compassionate team is available 24/7. Reach out today — we're here to walk with you.
+          <p className="text-primary-100 text-lg mb-8 max-w-2xl mx-auto">
+            Our 24/7 crisis support line is available when you need it most. Reach out today — we're here to walk with you.
+          </p>
+          <p className="text-primary-200 text-sm mb-10 max-w-xl mx-auto">
+            For life-threatening emergencies, call <strong className="text-white">911</strong> or go to the nearest emergency department. For mental-health crisis support, call or text <strong className="text-white">988</strong>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:2819037691" className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-7 py-4 rounded-full hover:bg-primary-50 transition-colors">

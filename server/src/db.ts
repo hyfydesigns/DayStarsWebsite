@@ -88,7 +88,7 @@ const contentSeeds: Record<string, string> = {
   'contact.phone': '281-903-7691',
   'contact.email': 'info@daystarsinc.com',
   'contact.address': '4611 S Main Suite 4 & 8, Stafford, Texas',
-  'contact.hours': '24/7 – We are always available',
+  'contact.hours': '24/7 Crisis Support Line Available',
   'contact.location_2': '',
   'stats.clients_served': '500+',
   'stats.years_operating': '19+',
@@ -97,7 +97,7 @@ const contentSeeds: Record<string, string> = {
 };
 
 // Keys that must always reflect the latest seed value (corrected facts, etc.)
-const alwaysUpdate = new Set(['stats.locations', 'contact.location_2', 'about.history']);
+const alwaysUpdate = new Set(['stats.locations', 'contact.location_2', 'about.history', 'contact.hours']);
 
 for (const [key, value] of Object.entries(contentSeeds)) {
   const exists = db.prepare('SELECT key FROM site_content WHERE key = ?').get(key);

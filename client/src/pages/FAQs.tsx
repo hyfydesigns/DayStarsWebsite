@@ -63,8 +63,8 @@ export default function FAQs() {
 
           <div className="mt-14 bg-primary-50 rounded-2xl p-8 text-center border border-primary-100">
             <h3 className="font-display font-bold text-gray-900 text-xl mb-3">Still Have Questions?</h3>
-            <p className="text-gray-600 mb-6">Our team is available 24/7 to answer any questions you may have.</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <p className="text-gray-600 mb-6">Contact us to learn more about our services, eligibility, or the enrollment process.</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
               <a href="tel:2819037691" className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-3 rounded-full transition-colors text-sm">
                 Call 281-903-7691
               </a>
@@ -72,6 +72,9 @@ export default function FAQs() {
                 info@daystarsinc.com
               </a>
             </div>
+            <p className="text-gray-400 text-xs leading-relaxed max-w-lg mx-auto">
+              If you or someone else is in immediate danger, call <strong className="text-gray-600">911</strong> or go to the nearest emergency department. For mental-health or suicide-related crisis support, call or text <strong className="text-gray-600">988</strong>.
+            </p>
           </div>
         </div>
       </section>

@@ -96,8 +96,9 @@ export default function Services() {
       {/* CTA */}
       <section className="py-16 bg-primary-700">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">Need Help? We're Here 24/7</h2>
-          <p className="text-primary-200 mb-8">Contact us to start the enrollment process or to learn more about our services.</p>
+          <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">Need Help? Our Crisis Support Line Is Available 24/7</h2>
+          <p className="text-primary-200 mb-4">Contact us to start the enrollment process or to learn more about our services.</p>
+          <p className="text-primary-300 text-sm mb-8">For life-threatening emergencies, call <strong className="text-white">911</strong> or go to the nearest emergency department. For mental-health crisis support, call or text <strong className="text-white">988</strong>.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:2819037691" className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-6 py-3.5 rounded-full">
               <Phone size={16} /> 281-903-7691
