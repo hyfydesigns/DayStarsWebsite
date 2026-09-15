@@ -44,10 +44,8 @@ export default function Footer() {
                 { label: 'Outpatient Mental Health / CMHC', slug: 'outpatient-mental-health-services-cmhc' },
                 { label: 'Intensive Outpatient Program (IOP)', slug: 'intensive-outpatient-program-iop' },
                 { label: 'Psychiatric Assessments', slug: 'psychiatric-assessments-evaluations' },
-                { label: 'Medication Management', slug: 'medication-management-psychiatric-follow-up' },
                 { label: 'Individual Counseling / Therapy', slug: 'individual-counseling-therapy' },
                 { label: 'Case Management', slug: 'case-management' },
-                { label: 'Nursing Assessments', slug: 'nursing-assessments' },
                 { label: '24/7 Crisis Support Line', slug: '24-7-crisis-support-line' },
               ].map(s => (
                 <li key={s.slug}>
