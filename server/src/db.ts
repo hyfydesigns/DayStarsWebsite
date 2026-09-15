@@ -2,7 +2,7 @@
 import path from 'path';
 import bcrypt from 'bcryptjs';
 
-const DB_PATH = path.join(__dirname, '../../data/daystars.db');
+const DB_PATH = process.env.DB_PATH || path.join(__dirname, '../../data/daystars.db');
 
 // Ensure data directory exists
 import fs from 'fs';
