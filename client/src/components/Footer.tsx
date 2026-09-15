@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -39,13 +39,29 @@ export default function Footer() {
           {/* Services */}
           <div>
             <h3 className="text-white font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li>Individual & Group Therapy</li>
-              <li>Case Management</li>
-              <li>Nursing Services</li>
-              <li>Transportation Assistance</li>
-              <li>Social Skills Training</li>
-              <li>Relapse Prevention</li>
+            <ul className="space-y-2 text-sm">
+              {[
+                { label: 'Outpatient Mental Health / CMHC', slug: 'outpatient-mental-health-services-cmhc' },
+                { label: 'Intensive Outpatient Program (IOP)', slug: 'intensive-outpatient-program-iop' },
+                { label: 'Psychiatric Assessments', slug: 'psychiatric-assessments-evaluations' },
+                { label: 'Medication Management', slug: 'medication-management-psychiatric-follow-up' },
+                { label: 'Individual Counseling / Therapy', slug: 'individual-counseling-therapy' },
+                { label: 'Case Management', slug: 'case-management' },
+                { label: 'Nursing Assessments', slug: 'nursing-assessments' },
+                { label: '24/7 Crisis Support Line', slug: '24-7-crisis-support-line' },
+              ].map(s => (
+                <li key={s.slug}>
+                  <Link to={`/services/${s.slug}`} className="text-gray-400 hover:text-white transition-colors flex items-center gap-1 group">
+                    <ArrowRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link to="/services" className="text-primary-400 hover:text-primary-300 transition-colors text-xs font-medium mt-1 inline-block">
+                  View all services →
+                </Link>
+              </li>
             </ul>
           </div>
 
