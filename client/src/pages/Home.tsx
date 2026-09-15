@@ -120,6 +120,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Intro */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-700 text-lg leading-relaxed mb-5">
+            At Daystars, we believe individuals deserve access to compassionate, coordinated behavioral-health services that support the whole person.
+          </p>
+          <p className="text-gray-500 leading-relaxed mb-5">
+            Our outpatient programs provide individualized mental-health treatment, psychiatric care, nursing support, case management, therapy, skills development, and care coordination designed to help individuals achieve greater stability, independence, and quality of life.
+          </p>
+          <p className="text-gray-500 leading-relaxed">
+            Whether you are seeking support for yourself, a loved one, or someone you serve professionally, our team works to connect each individual with the appropriate level of care and resources.
+          </p>
+        </div>
+      </section>
+
       {/* About snippet */}
       <section className="relative py-20 lg:py-28 overflow-hidden">
         <div className="absolute inset-0">
