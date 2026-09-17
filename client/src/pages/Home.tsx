@@ -27,10 +27,10 @@ function StatCard({ value, label }: { value: string; label: string }) {
 
 const heroImages = [
   'https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?w=1920&q=80&auto=format&fit=crop', // therapist & client session
-  'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1920&q=80&auto=format&fit=crop', // therapy / counseling warm tones
+  'https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=1920&q=80&auto=format&fit=crop', // two hands reaching — connection & support
   'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=1920&q=80&auto=format&fit=crop', // group support session
   'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1920&q=80&auto=format&fit=crop', // one-on-one counseling conversation
-  'https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=1920&q=80&auto=format&fit=crop', // mental health / calm setting
+  'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1920&q=80&auto=format&fit=crop', // two people in supportive consultation
 ];
 
 const randomHeroImage = heroImages[Math.floor(Math.random() * heroImages.length)];
