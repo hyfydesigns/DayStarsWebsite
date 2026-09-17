@@ -47,12 +47,12 @@ export default function Home() {
         {/* Background image */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=1920&q=80&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&q=80&auto=format&fit=crop"
             alt=""
             className="w-full h-full object-cover scale-105"
           />
           {/* Lighter overlay so image shows through more vividly */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0c2a4a]/88 via-[#0c3a5a]/78 to-[#0f4a5a]/65" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0c2a4a]/90 via-[#0c3a5a]/80 to-[#0f4a5a]/60" />
           {/* Subtle radial highlight in centre */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_50%,rgba(125,184,58,0.08),transparent_70%)]" />
         </div>
@@ -62,7 +62,7 @@ export default function Home() {
             {/* Badge */}
             <span className="inline-flex items-center gap-2 bg-[#7DB83A]/20 text-[#b8e87a] text-sm font-semibold px-5 py-2 rounded-full mb-8 border border-[#7DB83A]/40 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-[#7DB83A] animate-pulse" />
-              Community Mental Healthcare Center — Stafford, Texas
+              {c['hero.badge'] || 'Community Mental Healthcare Center — Stafford, Texas'}
             </span>
 
             {/* Headline */}
@@ -123,15 +123,9 @@ export default function Home() {
       {/* Intro */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-700 text-lg leading-relaxed mb-5">
-            At Daystars, we believe individuals deserve access to compassionate, coordinated behavioral-health services that support the whole person.
-          </p>
-          <p className="text-gray-500 leading-relaxed mb-5">
-            Our outpatient programs provide individualized mental-health treatment, psychiatric care, nursing support, case management, therapy, skills development, and care coordination designed to help individuals achieve greater stability, independence, and quality of life.
-          </p>
-          <p className="text-gray-500 leading-relaxed">
-            Whether you are seeking support for yourself, a loved one, or someone you serve professionally, our team works to connect each individual with the appropriate level of care and resources.
-          </p>
+          {c['home.intro_p1'] && <p className="text-gray-700 text-lg leading-relaxed mb-5">{c['home.intro_p1']}</p>}
+          {c['home.intro_p2'] && <p className="text-gray-500 leading-relaxed mb-5">{c['home.intro_p2']}</p>}
+          {c['home.intro_p3'] && <p className="text-gray-500 leading-relaxed">{c['home.intro_p3']}</p>}
         </div>
       </section>
 
@@ -162,12 +156,7 @@ export default function Home() {
                 <p className="text-primary-600 text-sm mt-2 font-medium">— Our Mission</p>
               </div>
               <ul className="space-y-3 mb-8">
-                {[
-                  'Research-based, person-centered care',
-                  'Licensed & accredited clinical staff',
-                  'Conveniently located in Stafford, Texas',
-                  'Serving clients since 2005',
-                ].map(item => (
+                {(c['home.about_bullets'] || 'Research-based, person-centered care\nLicensed & accredited clinical staff\nConveniently located in Stafford, Texas\nServing clients since 2005').split('\n').filter(Boolean).map(item => (
                   <li key={item} className="flex items-center gap-3 text-gray-700 text-sm">
                     <CheckCircle size={18} className="text-teal-500 flex-shrink-0" />
                     {item}
@@ -210,10 +199,10 @@ export default function Home() {
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="text-primary-600 text-sm font-semibold uppercase tracking-wider">What We Offer</span>
             <h2 className="font-display text-3xl lg:text-4xl font-bold text-gray-900 mt-2 mb-4">
-              Comprehensive Mental Health Services
+              {c['home.services_heading'] || 'Comprehensive Mental Health Services'}
             </h2>
             <p className="text-gray-500 leading-relaxed">
-              We provide a full continuum of behavioral health services designed to support recovery, independence, and well-being.
+              {c['home.services_subtext'] || 'We provide a full continuum of behavioral health services designed to support recovery, independence, and well-being.'}
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -276,10 +265,10 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-r from-primary-700 to-teal-600">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">
-            Ready to Take the First Step?
+            {c['home.cta_heading'] || 'Ready to Take the First Step?'}
           </h2>
           <p className="text-primary-100 text-lg mb-8 max-w-2xl mx-auto">
-            Our 24/7 crisis support line is available when you need it most. Reach out today — we're here to walk with you.
+            {c['home.cta_body'] || "Our 24/7 crisis support line is available when you need it most. Reach out today — we're here to walk with you."}
           </p>
           <p className="text-primary-200 text-sm mb-10 max-w-xl mx-auto">
             For life-threatening emergencies, call <strong className="text-white">911</strong> or go to the nearest emergency department. For mental-health crisis support, call or text <strong className="text-white">988</strong>.
