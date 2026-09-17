@@ -26,11 +26,9 @@ function StatCard({ value, label }: { value: string; label: string }) {
 }
 
 const heroImages = [
-  'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1920&q=80&auto=format&fit=crop', // clinical consultation room
   'https://images.unsplash.com/photo-1527137342181-19aab11a8ee8?w=1920&q=80&auto=format&fit=crop', // therapist & client session
   'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1920&q=80&auto=format&fit=crop', // therapy / counseling warm tones
   'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=1920&q=80&auto=format&fit=crop', // group support session
-  'https://images.unsplash.com/photo-1551076805-e1869033e561?w=1920&q=80&auto=format&fit=crop', // doctor / patient consultation
   'https://images.unsplash.com/photo-1504813184591-01572f98c85f?w=1920&q=80&auto=format&fit=crop', // counseling / listening session
   'https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=1920&q=80&auto=format&fit=crop', // mental health / calm setting
 ];
