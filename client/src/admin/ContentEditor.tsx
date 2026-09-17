@@ -7,8 +7,9 @@ type Section = { label: string; keys: { key: string; label: string; multiline?: 
 
 const sections: Section[] = [
   {
-    label: 'Hero Section',
+    label: 'Home Page — Hero',
     keys: [
+      { key: 'hero.badge', label: 'Badge Text' },
       { key: 'hero.headline', label: 'Headline' },
       { key: 'hero.subheadline', label: 'Subheadline', multiline: true },
       { key: 'hero.cta_primary', label: 'Primary Button Text' },
@@ -16,13 +17,59 @@ const sections: Section[] = [
     ],
   },
   {
-    label: 'About Section',
+    label: 'Home Page — Intro',
     keys: [
-      { key: 'about.title', label: 'Section Title' },
-      { key: 'about.history', label: 'History Paragraph', multiline: true },
+      { key: 'home.intro_p1', label: 'Intro Paragraph 1', multiline: true },
+      { key: 'home.intro_p2', label: 'Intro Paragraph 2', multiline: true },
+      { key: 'home.intro_p3', label: 'Intro Paragraph 3', multiline: true },
+      { key: 'home.about_bullets', label: 'About Bullets (one per line)', multiline: true },
+    ],
+  },
+  {
+    label: 'Home Page — Services & CTA',
+    keys: [
+      { key: 'home.services_heading', label: 'Services Section Heading' },
+      { key: 'home.services_subtext', label: 'Services Section Subtext', multiline: true },
+      { key: 'home.cta_heading', label: 'CTA Heading' },
+      { key: 'home.cta_body', label: 'CTA Body', multiline: true },
+    ],
+  },
+  {
+    label: 'Services Page',
+    keys: [
+      { key: 'services.hero_heading', label: 'Hero Heading' },
+      { key: 'services.hero_subtext', label: 'Hero Subtext', multiline: true },
+      { key: 'services.diagnoses_heading', label: 'Diagnoses Section Heading' },
+      { key: 'services.diagnoses_intro', label: 'Diagnoses Intro', multiline: true },
+      { key: 'services.diagnoses_list', label: 'Diagnoses List (one per line)', multiline: true },
+      { key: 'services.diagnoses_disclaimer', label: 'Diagnoses Disclaimer', multiline: true },
+      { key: 'services.cta_heading', label: 'CTA Heading' },
+      { key: 'services.cta_body', label: 'CTA Body', multiline: true },
+    ],
+  },
+  {
+    label: 'About Page',
+    keys: [
+      { key: 'about.title', label: 'Hero Title' },
+      { key: 'about.history', label: 'Hero Subtitle', multiline: true },
       { key: 'about.mission', label: 'Mission Statement', multiline: true },
       { key: 'about.vision', label: 'Vision Statement', multiline: true },
+      { key: 'about.milestone_2005', label: 'Milestone 2005', multiline: true },
+      { key: 'about.milestone_2008', label: 'Milestone 2008', multiline: true },
+      { key: 'about.milestone_2020', label: 'Milestone 2020', multiline: true },
       { key: 'about.licensed_since', label: 'Case Mgmt Licensed Since' },
+      { key: 'about.objectives', label: 'Objectives (one per line)', multiline: true },
+    ],
+  },
+  {
+    label: 'Contact Page',
+    keys: [
+      { key: 'contact.hero_heading', label: 'Hero Heading' },
+      { key: 'contact.hero_subtext', label: 'Hero Subtext', multiline: true },
+      { key: 'contact.phone', label: 'Phone Number' },
+      { key: 'contact.email', label: 'Email Address' },
+      { key: 'contact.address', label: 'Address' },
+      { key: 'contact.hours', label: 'Hours of Operation' },
     ],
   },
   {
@@ -32,15 +79,6 @@ const sections: Section[] = [
       { key: 'stats.years_operating', label: 'Years Operating' },
       { key: 'stats.staff_members', label: 'Staff Members' },
       { key: 'stats.locations', label: 'Locations' },
-    ],
-  },
-  {
-    label: 'Contact Information',
-    keys: [
-      { key: 'contact.phone', label: 'Phone Number' },
-      { key: 'contact.email', label: 'Email Address' },
-      { key: 'contact.address', label: 'Address' },
-      { key: 'contact.hours', label: 'Hours of Operation' },
     ],
   },
 ];

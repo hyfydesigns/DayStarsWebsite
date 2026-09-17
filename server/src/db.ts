@@ -76,20 +76,49 @@ if (!adminExists) {
 
 // Seed default content
 const contentSeeds: Record<string, string> = {
+  // Hero
   'hero.headline': 'Walking With You Toward Behavioral Strength',
   'hero.subheadline': 'A Community Mental Healthcare Center dedicated to helping individuals with behavioral and mental health challenges reclaim their lives.',
   'hero.cta_primary': 'Our Services',
   'hero.cta_secondary': 'Contact Us',
+  'hero.badge': 'Community Mental Healthcare Center — Stafford, Texas',
+  // Home page sections
+  'home.intro_p1': 'At Daystars, we believe individuals deserve access to compassionate, coordinated behavioral-health services that support the whole person.',
+  'home.intro_p2': 'Our outpatient programs provide individualized mental-health treatment, psychiatric care, nursing support, case management, therapy, skills development, and care coordination designed to help individuals achieve greater stability, independence, and quality of life.',
+  'home.intro_p3': 'Whether you are seeking support for yourself, a loved one, or someone you serve professionally, our team works to connect each individual with the appropriate level of care and resources.',
+  'home.about_bullets': 'Research-based, person-centered care\nLicensed & accredited clinical staff\nConveniently located in Stafford, Texas\nServing clients since 2005',
+  'home.services_heading': 'Comprehensive Mental Health Services',
+  'home.services_subtext': 'We provide a full continuum of behavioral health services designed to support recovery, independence, and well-being.',
+  'home.cta_heading': 'Ready to Take the First Step?',
+  'home.cta_body': "Our 24/7 crisis support line is available when you need it most. Reach out today — we're here to walk with you.",
+  // About
   'about.title': 'About Day Stars, Inc.',
   'about.history': 'Founded in 2005 by Emmanuel Onyemem, Day Stars was incorporated in 2008 alongside Dr. Matthew Brams and Ms. Gloria Francis. Today, under the leadership of Emmanuel Onyemem Jr. (CEO), we operate out of our center at 4611 S Main, Stafford, Texas.',
   'about.mission': 'To walk with the challenged through their weaknesses to a place of behavioral strength.',
   'about.vision': 'A community where every individual has access to compassionate, evidence-based mental health care and the support needed to thrive.',
   'about.licensed_since': 'May 2020',
+  'about.milestone_2005': 'Emmanuel Onyemem established Day Stars to serve individuals with mental health challenges in the Houston area.',
+  'about.milestone_2008': 'Day Stars was formally incorporated alongside Dr. Matthew Brams and Ms. Gloria Francis, expanding our capacity.',
+  'about.milestone_2020': 'We obtained Case Management licensing, broadening the scope of care we provide.',
+  'about.objectives': 'Deliver research-based, evidence-informed care\nEnhance personal autonomy and self-determination\nTeach effective symptom management skills\nMaintain a welcoming, safe environment for all\nPrevent hospitalization through relapse reduction\nProvide individualized treatment planning',
+  // Services page
+  'services.hero_heading': 'Comprehensive Mental Health Services',
+  'services.hero_subtext': 'We offer a full continuum of behavioral health services delivered by licensed, compassionate professionals who are committed to your recovery.',
+  'services.diagnoses_heading': 'Accepted Diagnoses',
+  'services.diagnoses_intro': 'We provide behavioral-health services for individuals experiencing a wide range of concerns, including:',
+  'services.diagnoses_list': 'Depression\nAnxiety\nMood-related concerns\nBipolar disorder\nPsychotic symptoms\nSchizophrenia-spectrum disorders\nDifficulty managing emotions or behaviors\nSocial and interpersonal challenges\nDifficulty functioning independently\nAdjustment and life-transition challenges\nOther behavioral-health concerns',
+  'services.diagnoses_disclaimer': 'Services are provided based on clinical assessment, eligibility, program requirements, and individual treatment needs.',
+  'services.cta_heading': 'Need Help? Our Crisis Support Line Is Available 24/7',
+  'services.cta_body': 'Contact us to start the enrollment process or to learn more about our services.',
+  // Contact page
+  'contact.hero_heading': "We're Here to Help",
+  'contact.hero_subtext': 'Ready to take the first step? Contact us to learn more about our services and the enrollment process. Our 24/7 crisis support line is available for clients who need behavioral-health support outside of regular business hours.',
   'contact.phone': '281-903-7691',
   'contact.email': 'info@daystarsinc.com',
   'contact.address': '4611 S Main Suite 4 & 8, Stafford, Texas',
   'contact.hours': '24/7 Crisis Support Line Available',
   'contact.location_2': '',
+  // Stats
   'stats.clients_served': '500+',
   'stats.years_operating': '19+',
   'stats.staff_members': '20+',
@@ -106,6 +135,36 @@ for (const [key, value] of Object.entries(contentSeeds)) {
   } else if (alwaysUpdate.has(key)) {
     db.prepare('UPDATE site_content SET value = ? WHERE key = ?').run(value, key);
   }
+}
+
+// Migrate: add coming_soon to team_members
+try { db.exec(`ALTER TABLE team_members ADD COLUMN coming_soon INTEGER DEFAULT 0`); } catch {}
+
+// Seed team member roles (Our People section)
+const teamCount = (db.prepare('SELECT COUNT(*) as c FROM team_members').get() as { c: number }).c;
+if (teamCount === 0) {
+  const roles = [
+    { name: 'Chief Executive Officer (CEO)', title: 'Executive Leadership', bio: 'Provides executive leadership and oversees the organization\'s strategic direction, operations, and growth.', sort_order: 1, coming_soon: 0 },
+    { name: 'Chief Financial Officer (CFO)', title: 'Financial Leadership', bio: 'Oversees financial operations, financial planning, accounting, and organizational financial management.', sort_order: 2, coming_soon: 0 },
+    { name: 'Program Director / Licensed Professional Counselor (LPC)', title: 'Clinical & Program Leadership', bio: 'Provides clinical and program leadership, oversees behavioral-health programming, supports treatment planning, and provides therapeutic services.', sort_order: 3, coming_soon: 0 },
+    { name: 'Medical Director — MD/DO', title: 'Medical Oversight', bio: 'Provides medical oversight and consultation for the organization\'s behavioral-health services.', sort_order: 4, coming_soon: 0 },
+    { name: 'Psychiatric Provider — NP/PMHNP', title: 'Psychiatric Care', bio: 'Provides psychiatric assessments, medication evaluation/management, follow-up, and ongoing psychiatric care as appropriate.', sort_order: 5, coming_soon: 0 },
+    { name: 'Licensed Professional Counselor — LPC/LPC-S', title: 'Counseling & Therapy', bio: 'Provides individual and/or group therapy, clinical assessments, treatment planning, and behavioral-health interventions.', sort_order: 6, coming_soon: 0 },
+    { name: 'Therapists', title: 'Therapeutic Services', bio: 'Provide individual and group therapeutic services focused on symptom management, coping skills, emotional wellness, relationships, and personal goals.', sort_order: 7, coming_soon: 0 },
+    { name: 'Registered Nurses — RN', title: 'Nursing Services', bio: 'Provide nursing assessments, health monitoring, medication-related support, education, and coordination with healthcare providers as appropriate.', sort_order: 8, coming_soon: 0 },
+    { name: 'Case Managers', title: 'Care Navigation', bio: 'Help clients navigate healthcare and community resources, coordinate services, address barriers to care, and work toward individualized goals.', sort_order: 9, coming_soon: 0 },
+    { name: 'Behavioral Health / Mental Health Technicians', title: 'Program Support', bio: 'Provide program support, assist with structured activities and skills development, monitor client needs, and support a safe therapeutic environment.', sort_order: 10, coming_soon: 0 },
+    { name: 'Clinical Supervisor', title: 'Clinical Oversight', bio: 'Provides clinical oversight, supervision, quality assurance, and support for the clinical team.', sort_order: 11, coming_soon: 0 },
+    { name: 'Intake / Admissions Coordinator', title: 'Admissions', bio: 'Coordinates referrals, intake processes, scheduling, eligibility information, and admission-related communication.', sort_order: 12, coming_soon: 0 },
+    { name: 'Care Coordinator', title: 'Care Coordination', bio: 'Supports communication and coordination among clients, families, providers, and community resources.', sort_order: 13, coming_soon: 0 },
+    { name: 'Utilization Review / Authorization Specialist', title: 'Utilization Review', bio: 'Supports authorization, utilization review, payer requirements, and coordination related to covered services.', sort_order: 14, coming_soon: 0 },
+    { name: 'Billing & Insurance Specialist', title: 'Billing & Insurance', bio: 'Supports insurance verification, claims, billing processes, and communication regarding coverage and reimbursement.', sort_order: 15, coming_soon: 0 },
+    { name: 'Quality Assurance / Compliance Coordinator', title: 'Quality & Compliance', bio: 'Supports quality monitoring, documentation standards, regulatory compliance, and continuous improvement.', sort_order: 16, coming_soon: 0 },
+    { name: 'Peer Support Specialist', title: 'Peer Support', bio: 'Provides recovery-oriented support based on lived experience and helps clients connect with appropriate resources.', sort_order: 17, coming_soon: 0 },
+    { name: 'Substance Use Counselor', title: 'Substance Use & Recovery', bio: 'Future role supporting substance-use and recovery services as those services become available.', sort_order: 18, coming_soon: 1 },
+  ];
+  const insertRole = db.prepare('INSERT INTO team_members (name, title, bio, image_url, sort_order, coming_soon) VALUES (?, ?, ?, ?, ?, ?)');
+  for (const r of roles) insertRole.run(r.name, r.title, r.bio, '', r.sort_order, r.coming_soon);
 }
 
 // Migrate: add columns to services if they don't exist

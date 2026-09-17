@@ -4,7 +4,7 @@ import type { TeamMember } from '../api/client';
 import { Plus, Trash2, Save, X } from 'lucide-react';
 
 type EditingMember = Omit<TeamMember, 'id'> & { id?: number };
-const blank = (): EditingMember => ({ name: '', title: '', bio: '', image_url: '', sort_order: 0 });
+const blank = (): EditingMember => ({ name: '', title: '', bio: '', image_url: '', sort_order: 0, coming_soon: 0 });
 
 export default function TeamEditor() {
   const [team, setTeam] = useState<TeamMember[]>([]);
@@ -37,11 +37,11 @@ export default function TeamEditor() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-2xl font-bold text-gray-900">Team Members</h1>
-          <p className="text-gray-500 text-sm mt-1">Manage the leadership team displayed on the About page.</p>
+          <h1 className="font-display text-2xl font-bold text-gray-900">Our People / Roles</h1>
+          <p className="text-gray-500 text-sm mt-1">Manage the roles and team displayed on the About page.</p>
         </div>
         <button onClick={() => setEditing(blank())} className="flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm">
-          <Plus size={15} /> Add Member
+          <Plus size={15} /> Add Role
         </button>
       </div>
 
@@ -49,22 +49,22 @@ export default function TeamEditor() {
         <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="font-display font-bold text-gray-900 text-lg">{editing.id ? 'Edit Member' : 'Add Member'}</h2>
+              <h2 className="font-display font-bold text-gray-900 text-lg">{editing.id ? 'Edit Role' : 'Add Role'}</h2>
               <button onClick={() => setEditing(null)} className="text-gray-400 hover:text-gray-600"><X size={20} /></button>
             </div>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Role / Name</label>
                   <input type="text" value={editing.name} onChange={e => setEditing(s => s && ({ ...s, name: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
                   <input type="text" value={editing.title} onChange={e => setEditing(s => s && ({ ...s, title: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
                 <textarea rows={3} value={editing.bio} onChange={e => setEditing(s => s && ({ ...s, bio: e.target.value }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none" />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -77,6 +77,10 @@ export default function TeamEditor() {
                   <input type="number" value={editing.sort_order} onChange={e => setEditing(s => s && ({ ...s, sort_order: Number(e.target.value) }))} className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500" />
                 </div>
               </div>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" checked={!!editing.coming_soon} onChange={e => setEditing(s => s && ({ ...s, coming_soon: e.target.checked ? 1 : 0 }))} className="w-4 h-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
+                <span className="text-sm font-medium text-gray-700">Mark as Coming Soon</span>
+              </label>
             </div>
             <div className="flex gap-3 mt-6">
               <button onClick={() => setEditing(null)} className="flex-1 border border-gray-200 text-gray-600 font-semibold py-3 rounded-xl text-sm hover:bg-gray-50">Cancel</button>
@@ -96,7 +100,10 @@ export default function TeamEditor() {
                 {m.image_url ? <img src={m.image_url} alt={m.name} className="w-12 h-12 rounded-full object-cover" /> : <span className="text-primary-600 font-bold text-sm">{m.name.split(' ').map(n => n[0]).join('').slice(0, 2)}</span>}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="font-semibold text-gray-900 text-sm truncate">{m.name}</div>
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold text-gray-900 text-sm truncate">{m.name}</span>
+                  {!!m.coming_soon && <span className="flex-shrink-0 text-xs bg-amber-100 text-amber-700 font-semibold px-1.5 py-0.5 rounded-full border border-amber-200">Soon</span>}
+                </div>
                 <div className="text-primary-600 text-xs">{m.title}</div>
               </div>
             </div>

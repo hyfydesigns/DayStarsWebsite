@@ -37,10 +37,10 @@ export default function Contact() {
             Get in Touch
           </span>
           <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-6">
-            We're Here to Help
+            {c['contact.hero_heading'] || "We're Here to Help"}
           </h1>
           <p className="text-primary-100 text-lg max-w-2xl mx-auto">
-            Ready to take the first step? Contact us to learn more about our services and the enrollment process. Our 24/7 crisis support line is available for clients who need behavioral-health support outside of regular business hours.
+            {c['contact.hero_subtext'] || 'Ready to take the first step? Contact us to learn more about our services and the enrollment process. Our 24/7 crisis support line is available for clients who need behavioral-health support outside of regular business hours.'}
           </p>
         </div>
       </section>

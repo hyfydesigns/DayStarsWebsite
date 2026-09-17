@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { fetchContent } from '../api/client';
-import type { SiteContent } from '../api/client';
+import { fetchContent, fetchTeam } from '../api/client';
+import type { SiteContent, TeamMember } from '../api/client';
 import { CheckCircle, Award, Heart } from 'lucide-react';
 
 export default function About() {
   const [content, setContent] = useState<SiteContent>({});
+  const [team, setTeam] = useState<TeamMember[]>([]);
 
   useEffect(() => {
     fetchContent().then(setContent);
+    fetchTeam().then(setTeam);
   }, []);
 
   const c = content;
@@ -82,14 +84,14 @@ export default function About() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { year: '2005', label: 'Founded', desc: 'Emmanuel Onyemem established Day Stars to serve individuals with mental health challenges in the Houston area.' },
-              { year: '2008', label: 'Incorporated', desc: 'Day Stars was formally incorporated alongside Dr. Matthew Brams and Ms. Gloria Francis, expanding our capacity.' },
-              { year: '2020', label: 'Case Management Licensed', desc: `In ${c['about.licensed_since'] || 'May 2020'}, we obtained Case Management licensing, broadening the scope of care we provide.` },
+              { year: '2005', label: 'Founded', key: 'about.milestone_2005', fallback: 'Emmanuel Onyemem established Day Stars to serve individuals with mental health challenges in the Houston area.' },
+              { year: '2008', label: 'Incorporated', key: 'about.milestone_2008', fallback: 'Day Stars was formally incorporated alongside Dr. Matthew Brams and Ms. Gloria Francis, expanding our capacity.' },
+              { year: '2020', label: 'Case Management Licensed', key: 'about.milestone_2020', fallback: `In ${c['about.licensed_since'] || 'May 2020'}, we obtained Case Management licensing, broadening the scope of care we provide.` },
             ].map(item => (
               <div key={item.year} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
                 <div className="text-4xl font-display font-bold text-primary-600 mb-1">{item.year}</div>
                 <div className="font-semibold text-gray-900 mb-3">{item.label}</div>
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+                <p className="text-gray-500 text-sm leading-relaxed">{c[item.key] || item.fallback}</p>
               </div>
             ))}
           </div>
@@ -104,14 +106,7 @@ export default function About() {
             <p className="text-gray-500">How we deliver on our mission every day.</p>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
-            {[
-              'Deliver research-based, evidence-informed care',
-              'Enhance personal autonomy and self-determination',
-              'Teach effective symptom management skills',
-              'Maintain a welcoming, safe environment for all',
-              'Prevent hospitalization through relapse reduction',
-              'Provide individualized treatment planning',
-            ].map(item => (
+            {(c['about.objectives'] || 'Deliver research-based, evidence-informed care\nEnhance personal autonomy and self-determination\nTeach effective symptom management skills\nMaintain a welcoming, safe environment for all\nPrevent hospitalization through relapse reduction\nProvide individualized treatment planning').split('\n').filter(Boolean).map(item => (
               <div key={item} className="flex items-start gap-3 bg-gray-50 rounded-xl p-4">
                 <CheckCircle size={18} className="text-teal-500 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-700 text-sm leading-relaxed">{item}</span>
@@ -129,32 +124,13 @@ export default function About() {
             <h2 className="font-display text-3xl font-bold text-gray-900 mt-2">Our Team</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { role: 'Chief Executive Officer (CEO)', desc: 'Provides executive leadership and oversees the organization\'s strategic direction, operations, and growth.' },
-              { role: 'Chief Financial Officer (CFO)', desc: 'Oversees financial operations, financial planning, accounting, and organizational financial management.' },
-              { role: 'Program Director / Licensed Professional Counselor (LPC)', desc: 'Provides clinical and program leadership, oversees behavioral-health programming, supports treatment planning, and provides therapeutic services.' },
-              { role: 'Medical Director — MD/DO', desc: 'Provides medical oversight and consultation for the organization\'s behavioral-health services.' },
-              { role: 'Psychiatric Provider — NP/PMHNP', desc: 'Provides psychiatric assessments, medication evaluation/management, follow-up, and ongoing psychiatric care as appropriate.' },
-              { role: 'Licensed Professional Counselor — LPC/LPC-S', desc: 'Provides individual and/or group therapy, clinical assessments, treatment planning, and behavioral-health interventions.' },
-              { role: 'Therapists', desc: 'Provide individual and group therapeutic services focused on symptom management, coping skills, emotional wellness, relationships, and personal goals.' },
-              { role: 'Registered Nurses — RN', desc: 'Provide nursing assessments, health monitoring, medication-related support, education, and coordination with healthcare providers as appropriate.' },
-              { role: 'Case Managers', desc: 'Help clients navigate healthcare and community resources, coordinate services, address barriers to care, and work toward individualized goals.' },
-              { role: 'Behavioral Health / Mental Health Technicians', desc: 'Provide program support, assist with structured activities and skills development, monitor client needs, and support a safe therapeutic environment.' },
-              { role: 'Clinical Supervisor', desc: 'Provides clinical oversight, supervision, quality assurance, and support for the clinical team.' },
-              { role: 'Intake / Admissions Coordinator', desc: 'Coordinates referrals, intake processes, scheduling, eligibility information, and admission-related communication.' },
-              { role: 'Care Coordinator', desc: 'Supports communication and coordination among clients, families, providers, and community resources.' },
-              { role: 'Utilization Review / Authorization Specialist', desc: 'Supports authorization, utilization review, payer requirements, and coordination related to covered services.' },
-              { role: 'Billing & Insurance Specialist', desc: 'Supports insurance verification, claims, billing processes, and communication regarding coverage and reimbursement.' },
-              { role: 'Quality Assurance / Compliance Coordinator', desc: 'Supports quality monitoring, documentation standards, regulatory compliance, and continuous improvement.' },
-              { role: 'Peer Support Specialist', desc: 'Provides recovery-oriented support based on lived experience and helps clients connect with appropriate resources.' },
-              { role: 'Substance Use Counselor', desc: 'Future role supporting substance-use and recovery services as those services become available.', comingSoon: true },
-            ].map(({ role, desc, comingSoon }) => (
-              <div key={role} className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ${comingSoon ? 'opacity-70' : ''}`}>
+            {team.map(m => (
+              <div key={m.id} className={`bg-white rounded-2xl p-6 shadow-sm border border-gray-100 ${m.coming_soon ? 'opacity-70' : ''}`}>
                 <div className="flex items-start gap-2 mb-2">
-                  <h3 className="font-display font-bold text-gray-900 text-base leading-snug">{role}</h3>
-                  {comingSoon && <span className="flex-shrink-0 mt-0.5 text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full border border-amber-200">Coming Soon</span>}
+                  <h3 className="font-display font-bold text-gray-900 text-base leading-snug">{m.name}</h3>
+                  {!!m.coming_soon && <span className="flex-shrink-0 mt-0.5 text-xs bg-amber-100 text-amber-700 font-semibold px-2 py-0.5 rounded-full border border-amber-200">Coming Soon</span>}
                 </div>
-                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+                <p className="text-gray-500 text-sm leading-relaxed">{m.bio}</p>
               </div>
             ))}
           </div>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Brain, ClipboardList, Heart, Users, Search, Shield, Phone, ArrowRight, Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Globe, Leaf, CheckCircle } from 'lucide-react';
-import { fetchServices } from '../api/client';
-import type { Service } from '../api/client';
+import { fetchServices, fetchContent } from '../api/client';
+import type { Service, SiteContent } from '../api/client';
 
 const iconMap: Record<string, React.ElementType> = {
   Brain, ClipboardList, Heart, Users, Search, Shield,
@@ -17,10 +17,14 @@ const iconStyles = [
 
 export default function Services() {
   const [services, setServices] = useState<Service[]>([]);
+  const [content, setContent] = useState<SiteContent>({});
 
   useEffect(() => {
     fetchServices().then(setServices);
+    fetchContent().then(setContent);
   }, []);
+
+  const c = content;
 
   return (
     <div className="pt-20 lg:pt-28">
@@ -38,10 +42,10 @@ export default function Services() {
             What We Offer
           </span>
           <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-6">
-            Comprehensive Mental Health Services
+            {c['services.hero_heading'] || 'Comprehensive Mental Health Services'}
           </h1>
           <p className="text-primary-100 text-lg leading-relaxed max-w-2xl mx-auto">
-            We offer a full continuum of behavioral health services delivered by licensed, compassionate professionals who are committed to your recovery.
+            {c['services.hero_subtext'] || 'We offer a full continuum of behavioral health services delivered by licensed, compassionate professionals who are committed to your recovery.'}
           </p>
         </div>
       </section>
@@ -79,25 +83,25 @@ export default function Services() {
       {/* Diagnoses */}
       <section className="py-20 lg:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-display text-3xl font-bold text-gray-900 mb-4">Accepted Diagnoses</h2>
-          <p className="text-gray-500 mb-10">We provide behavioral-health services for individuals experiencing a wide range of concerns, including:</p>
+          <h2 className="font-display text-3xl font-bold text-gray-900 mb-4">{c['services.diagnoses_heading'] || 'Accepted Diagnoses'}</h2>
+          <p className="text-gray-500 mb-10">{c['services.diagnoses_intro'] || 'We provide behavioral-health services for individuals experiencing a wide range of concerns, including:'}</p>
           <div className="grid sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto mb-8">
-            {['Depression', 'Anxiety', 'Mood-related concerns', 'Bipolar disorder', 'Psychotic symptoms', 'Schizophrenia-spectrum disorders', 'Difficulty managing emotions or behaviors', 'Social and interpersonal challenges', 'Difficulty functioning independently', 'Adjustment and life-transition challenges', 'Other behavioral-health concerns'].map(d => (
+            {(c['services.diagnoses_list'] || 'Depression\nAnxiety\nMood-related concerns\nBipolar disorder\nPsychotic symptoms\nSchizophrenia-spectrum disorders\nDifficulty managing emotions or behaviors\nSocial and interpersonal challenges\nDifficulty functioning independently\nAdjustment and life-transition challenges\nOther behavioral-health concerns').split('\n').filter(Boolean).map(d => (
               <div key={d} className="flex items-center gap-3 bg-primary-50 rounded-xl px-5 py-4">
                 <div className="w-2 h-2 rounded-full bg-primary-500 flex-shrink-0" />
                 <span className="text-primary-800 font-medium text-sm">{d}</span>
               </div>
             ))}
           </div>
-          <p className="text-gray-400 text-sm max-w-2xl mx-auto">Services are provided based on clinical assessment, eligibility, program requirements, and individual treatment needs.</p>
+          <p className="text-gray-400 text-sm max-w-2xl mx-auto">{c['services.diagnoses_disclaimer'] || 'Services are provided based on clinical assessment, eligibility, program requirements, and individual treatment needs.'}</p>
         </div>
       </section>
 
       {/* CTA */}
       <section className="py-16 bg-primary-700">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">Need Help? Our Crisis Support Line Is Available 24/7</h2>
-          <p className="text-primary-200 mb-4">Contact us to start the enrollment process or to learn more about our services.</p>
+          <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-4">{c['services.cta_heading'] || 'Need Help? Our Crisis Support Line Is Available 24/7'}</h2>
+          <p className="text-primary-200 mb-4">{c['services.cta_body'] || 'Contact us to start the enrollment process or to learn more about our services.'}</p>
           <p className="text-primary-300 text-sm mb-8">For life-threatening emergencies, call <strong className="text-white">911</strong> or go to the nearest emergency department. For mental-health crisis support, call or text <strong className="text-white">988</strong>.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="tel:2819037691" className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-6 py-3.5 rounded-full">

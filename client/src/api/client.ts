@@ -34,6 +34,7 @@ export interface TeamMember {
   bio: string;
   image_url: string;
   sort_order: number;
+  coming_soon: number;
 }
 
 export interface FAQ {
