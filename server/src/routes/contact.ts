@@ -6,7 +6,8 @@ import { verifyToken } from '../auth';
 const router = Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || 'info@daystarsinc.com';
+const NOTIFY_EMAILS = (process.env.NOTIFY_EMAIL || 'info@daystarsinc.com')
+  .split(',').map(e => e.trim()).filter(Boolean);
 const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
 
 // Public: submit contact form
@@ -27,7 +28,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
     await resend.emails.send({
       from: FROM_EMAIL,
-      to: NOTIFY_EMAIL,
+      to: NOTIFY_EMAILS,
       replyTo: email,
       subject: `New contact form message from ${name}`,
       html: `
