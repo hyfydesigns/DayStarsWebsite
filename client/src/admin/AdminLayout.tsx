@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, FileText, Briefcase, Users, HelpCircle, MessageSquare, Settings, LogOut, Menu, X, Eye } from 'lucide-react';
-import { useState } from 'react';
+import { LayoutDashboard, FileText, Briefcase, Users, HelpCircle, MessageSquare, Settings, LogOut, Menu, X, Eye, Inbox } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import api from '../api/client';
 
 const navItems = [
   { label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard },
@@ -10,6 +11,7 @@ const navItems = [
   { label: 'Team Members', to: '/admin/team', icon: Users },
   { label: 'FAQs', to: '/admin/faqs', icon: HelpCircle },
   { label: 'Testimonials', to: '/admin/testimonials', icon: MessageSquare },
+  { label: 'Contact Inbox', to: '/admin/contact', icon: Inbox },
   { label: 'Settings', to: '/admin/settings', icon: Settings },
 ];
 
@@ -18,6 +20,13 @@ export default function AdminLayout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    api.get<{ read: number }[]>('/contact').then(r => {
+      setUnreadCount(r.data.filter(s => !s.read).length);
+    }).catch(() => {});
+  }, [location.pathname]);
 
   if (!isAuthenticated) {
     navigate('/admin');
@@ -54,7 +63,10 @@ export default function AdminLayout() {
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${active ? 'bg-primary-600 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800'}`}
               >
                 <Icon size={17} />
-                {item.label}
+                <span className="flex-1">{item.label}</span>
+                {item.to === '/admin/contact' && unreadCount > 0 && (
+                  <span className="bg-primary-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">{unreadCount}</span>
+                )}
               </Link>
             );
           })}

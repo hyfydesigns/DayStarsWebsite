@@ -65,6 +65,16 @@ db.exec(`
     author TEXT NOT NULL,
     sort_order INTEGER DEFAULT 0
   );
+
+  CREATE TABLE IF NOT EXISTS contact_submissions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT DEFAULT '',
+    message TEXT NOT NULL,
+    read INTEGER DEFAULT 0,
+    created_at TEXT DEFAULT (datetime('now'))
+  );
 `);
 
 // Seed default admin
@@ -205,9 +215,9 @@ if (serviceCount === 0) {
   for (const s of services) insert.run(s.title, s.description, s.icon, s.sort_order, s.image_url, s.long_description, s.bullet_points, s.who_it_helps, s.coming_soon, makeSlug(s.title));
 }
 
-// Seed team
-const teamCount = (db.prepare('SELECT COUNT(*) as c FROM team_members').get() as { c: number }).c;
-if (teamCount === 0) {
+// Seed team (legacy — superseded by role seed above)
+const teamCountLegacy = (db.prepare('SELECT COUNT(*) as c FROM team_members').get() as { c: number }).c;
+if (teamCountLegacy === 0) {
   const team = [
     { name: 'Emmanuel Onyemem Jr.', title: 'Chief Executive Officer', bio: 'Leading Day Stars with a passion for expanding access to mental health care across the Houston area.', sort_order: 1 },
     { name: 'Alice Akingbade', title: 'Center Director', bio: 'Overseeing daily operations and ensuring the highest standard of care for all clients.', sort_order: 2 },

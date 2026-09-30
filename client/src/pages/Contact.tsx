@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
 import { fetchContent } from '../api/client';
+import api from '../api/client';
 import type { SiteContent } from '../api/client';
 
 export default function Contact() {
   const [content, setContent] = useState<SiteContent>({});
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     fetchContent().then(setContent);
@@ -14,11 +17,19 @@ export default function Contact() {
 
   const c = content;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, wire this to an email API or backend endpoint
-    setSubmitted(true);
-    setForm({ name: '', email: '', phone: '', message: '' });
+    setSubmitting(true);
+    setSubmitError('');
+    try {
+      await api.post('/contact', form);
+      setSubmitted(true);
+      setForm({ name: '', email: '', phone: '', message: '' });
+    } catch {
+      setSubmitError('Something went wrong. Please try calling us directly.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -181,11 +192,15 @@ export default function Contact() {
                       placeholder="How can we help you?"
                     />
                   </div>
+                  {submitError && (
+                    <p className="text-red-600 text-sm text-center">{submitError}</p>
+                  )}
                   <button
                     type="submit"
-                    className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors"
+                    disabled={submitting}
+                    className="w-full bg-primary-600 hover:bg-primary-700 disabled:opacity-60 text-white font-semibold py-4 rounded-xl flex items-center justify-center gap-2 transition-colors"
                   >
-                    <Send size={16} /> Send Message
+                    <Send size={16} /> {submitting ? 'Sending…' : 'Send Message'}
                   </button>
                   <p className="text-xs text-gray-400 text-center">
                     Your information is kept strictly confidential. We never share personal data.

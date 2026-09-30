@@ -18,6 +18,7 @@ import TeamEditor from './admin/TeamEditor';
 import FAQsEditor from './admin/FAQsEditor';
 import TestimonialsEditor from './admin/TestimonialsEditor';
 import AdminSettings from './admin/Settings';
+import ContactSubmissions from './admin/ContactSubmissions';
 
 function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -52,6 +53,7 @@ export default function App() {
             <Route path="team" element={<TeamEditor />} />
             <Route path="faqs" element={<FAQsEditor />} />
             <Route path="testimonials" element={<TestimonialsEditor />} />
+            <Route path="contact" element={<ContactSubmissions />} />
             <Route path="settings" element={<AdminSettings />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

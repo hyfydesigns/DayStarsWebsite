@@ -7,6 +7,7 @@ import servicesRoutes from './routes/services';
 import teamRoutes from './routes/team';
 import faqsRoutes from './routes/faqs';
 import testimonialsRoutes from './routes/testimonials';
+import contactRoutes from './routes/contact';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use('/api/services', servicesRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/faqs', faqsRoutes);
 app.use('/api/testimonials', testimonialsRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 
