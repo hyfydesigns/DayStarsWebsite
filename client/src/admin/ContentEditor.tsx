@@ -66,7 +66,8 @@ const sections: Section[] = [
     keys: [
       { key: 'contact.hero_heading', label: 'Hero Heading' },
       { key: 'contact.hero_subtext', label: 'Hero Subtext', multiline: true },
-      { key: 'contact.phone', label: 'Phone Number' },
+      { key: 'contact.phone', label: '24/7 Crisis Support Line' },
+      { key: 'contact.business_cell', label: 'Business Cell' },
       { key: 'contact.email', label: 'Email Address' },
       { key: 'contact.address', label: 'Address' },
       { key: 'contact.hours', label: 'Hours of Operation' },

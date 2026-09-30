@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
+import { fetchContent } from '../api/client';
+import type { SiteContent } from '../api/client';
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -13,7 +15,10 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [content, setContent] = useState<SiteContent>({});
   const location = useLocation();
+
+  useEffect(() => { fetchContent().then(setContent); }, []);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
@@ -51,9 +56,9 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <a href="tel:2819037691" className="flex items-center gap-2 text-sm text-gray-600 hover:text-primary-600 transition-colors">
+            <a href={`tel:${(content['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="flex items-center gap-2 text-sm text-gray-600 hover:text-primary-600 transition-colors">
               <Phone size={15} />
-              <span className="font-medium">281-903-7691</span>
+              <span className="font-medium">{content['contact.phone'] || '281-903-7691'}</span>
             </a>
             <Link to="/contact" className="bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
               Get Help Now
@@ -85,8 +90,8 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="pt-2 pb-1 border-t border-gray-100 mt-2 flex flex-col gap-2">
-              <a href="tel:2819037691" className="flex items-center gap-2 px-4 py-3 text-sm text-gray-600">
-                <Phone size={15} /> 281-903-7691
+              <a href={`tel:${(content['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="flex items-center gap-2 px-4 py-3 text-sm text-gray-600">
+                <Phone size={15} /> {content['contact.phone'] || '281-903-7691'}
               </a>
               <Link to="/contact" className="block text-center bg-primary-600 text-white text-sm font-semibold px-5 py-3 rounded-full">
                 Get Help Now

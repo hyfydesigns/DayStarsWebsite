@@ -57,12 +57,25 @@ export default function Contact() {
                     <Phone size={20} className="text-primary-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 mb-1">Phone</div>
-                    <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/-/g, '')}`} className="text-gray-600 hover:text-primary-600 transition-colors">
+                    <div className="font-semibold text-gray-900 mb-1">24/7 Crisis Support Line</div>
+                    <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="text-gray-600 hover:text-primary-600 transition-colors">
                       {c['contact.phone'] || '281-903-7691'}
                     </a>
                   </div>
                 </div>
+                {(c['contact.business_cell']) && (
+                  <div className="flex items-start gap-4">
+                    <div className="w-11 h-11 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Phone size={20} className="text-primary-600" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-900 mb-1">Business Cell</div>
+                      <a href={`tel:${c['contact.business_cell'].replace(/\D/g, '')}`} className="text-gray-600 hover:text-primary-600 transition-colors">
+                        {c['contact.business_cell']}
+                      </a>
+                    </div>
+                  </div>
+                )}
                 <div className="flex items-start gap-4">
                   <div className="w-11 h-11 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Mail size={20} className="text-primary-600" />
@@ -98,7 +111,7 @@ export default function Contact() {
                 <h3 className="font-semibold text-gray-900 mb-2">Immediate Help Available</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
                   If you or someone you know is experiencing a mental health crisis, please call us immediately at{' '}
-                  <a href="tel:2819037691" className="text-primary-600 font-semibold">281-903-7691</a>. We're here around the clock.
+                  <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="text-primary-600 font-semibold">{c['contact.phone'] || '281-903-7691'}</a>. We're here around the clock.
                 </p>
               </div>
 

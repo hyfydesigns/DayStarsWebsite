@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { fetchContent } from '../api/client';
+import type { SiteContent } from '../api/client';
 
 export default function Footer() {
+  const [content, setContent] = useState<SiteContent>({});
+  useEffect(() => { fetchContent().then(setContent); }, []);
+  const c = content;
+
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -69,8 +76,20 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2 text-gray-400">
                 <Phone size={15} className="mt-0.5 flex-shrink-0 text-primary-400" />
-                <a href="tel:2819037691" className="hover:text-white transition-colors">281-903-7691</a>
+                <div>
+                  <div className="text-xs text-gray-500 mb-0.5">24/7 Crisis Line</div>
+                  <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="hover:text-white transition-colors">{c['contact.phone'] || '281-903-7691'}</a>
+                </div>
               </li>
+              {c['contact.business_cell'] && (
+                <li className="flex items-start gap-2 text-gray-400">
+                  <Phone size={15} className="mt-0.5 flex-shrink-0 text-primary-400" />
+                  <div>
+                    <div className="text-xs text-gray-500 mb-0.5">Business Cell</div>
+                    <a href={`tel:${c['contact.business_cell'].replace(/\D/g, '')}`} className="hover:text-white transition-colors">{c['contact.business_cell']}</a>
+                  </div>
+                </li>
+              )}
               <li className="flex items-start gap-2 text-gray-400">
                 <Mail size={15} className="mt-0.5 flex-shrink-0 text-primary-400" />
                 <a href="mailto:info@daystarsinc.com" className="hover:text-white transition-colors">info@daystarsinc.com</a>

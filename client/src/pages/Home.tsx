@@ -284,8 +284,8 @@ export default function Home() {
             For life-threatening emergencies, call <strong className="text-white">911</strong> or go to the nearest emergency department. For mental-health crisis support, call or text <strong className="text-white">988</strong>.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:2819037691" className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-7 py-4 rounded-full hover:bg-primary-50 transition-colors">
-              <Phone size={18} /> Call 281-903-7691
+            <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-7 py-4 rounded-full hover:bg-primary-50 transition-colors">
+              <Phone size={18} /> Call {c['contact.phone'] || '281-903-7691'}
             </a>
             <Link to="/contact" className="inline-flex items-center justify-center gap-2 bg-white/10 border border-white/30 text-white font-semibold px-7 py-4 rounded-full hover:bg-white/20 transition-colors">
               Send a Message

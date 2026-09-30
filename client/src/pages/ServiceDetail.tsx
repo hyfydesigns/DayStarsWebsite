@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Brain, ClipboardList, Heart, Users, Search, Shield, ArrowLeft, ArrowRight, CheckCircle, Phone, HelpCircle, Activity, Pill, Stethoscope, MessageCircle, Network, FileText, Globe, Leaf } from 'lucide-react';
-import { fetchService, fetchServices } from '../api/client';
-import type { Service } from '../api/client';
+import { fetchService, fetchServices, fetchContent } from '../api/client';
+import type { Service, SiteContent } from '../api/client';
 
 const iconMap: Record<string, React.ElementType> = {
   Brain, ClipboardList, Heart, Users, Search, Shield,
@@ -20,14 +20,16 @@ export default function ServiceDetail() {
   const navigate = useNavigate();
   const [service, setService] = useState<Service | null>(null);
   const [allServices, setAllServices] = useState<Service[]>([]);
+  const [content, setContent] = useState<SiteContent>({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
     setLoading(true);
-    Promise.all([fetchService(slug), fetchServices()]).then(([svc, all]) => {
+    Promise.all([fetchService(slug), fetchServices(), fetchContent()]).then(([svc, all, c]) => {
       setService(svc);
       setAllServices(all);
+      setContent(c);
       setLoading(false);
     }).catch(() => navigate('/services'));
   }, [slug]);
@@ -152,8 +154,8 @@ export default function ServiceDetail() {
                   Contact our team today to learn more about this service and how we can help you or your loved one.
                 </p>
                 <div className="space-y-3">
-                  <a href="tel:2819037691" className="flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-5 py-3 rounded-full text-sm hover:bg-primary-50 transition-colors w-full">
-                    <Phone size={15} /> Call 281-903-7691
+                  <a href={`tel:${(content['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-5 py-3 rounded-full text-sm hover:bg-primary-50 transition-colors w-full">
+                    <Phone size={15} /> Call {content['contact.phone'] || '281-903-7691'}
                   </a>
                   <Link to="/contact" className="flex items-center justify-center gap-2 bg-white/10 border border-white/30 text-white font-semibold px-5 py-3 rounded-full text-sm hover:bg-white/20 transition-colors w-full">
                     Send a Message

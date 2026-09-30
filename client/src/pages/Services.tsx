@@ -104,8 +104,8 @@ export default function Services() {
           <p className="text-primary-200 mb-4">{c['services.cta_body'] || 'Contact us to start the enrollment process or to learn more about our services.'}</p>
           <p className="text-primary-300 text-sm mb-8">For life-threatening emergencies, call <strong className="text-white">911</strong> or go to the nearest emergency department. For mental-health crisis support, call or text <strong className="text-white">988</strong>.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:2819037691" className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-6 py-3.5 rounded-full">
-              <Phone size={16} /> 281-903-7691
+            <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-6 py-3.5 rounded-full">
+              <Phone size={16} /> {c['contact.phone'] || '281-903-7691'}
             </a>
             <Link to="/contact" className="inline-flex items-center justify-center gap-2 border border-white/40 text-white font-semibold px-6 py-3.5 rounded-full hover:bg-white/10">
               Get in Touch <ArrowRight size={16} />
