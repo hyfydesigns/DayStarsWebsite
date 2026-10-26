@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import db from './db';
 import authRoutes from './routes/auth';
 import contentRoutes from './routes/content';
 import servicesRoutes from './routes/services';
@@ -31,13 +32,14 @@ app.use('/api/contact', contactRoutes);
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 
-app.listen(PORT, () => {
-  console.log(`Day Stars API running on http://localhost:${PORT}`);
-});
-
-app.get('/api/reset-admin-temp', (req, res) => {
+// TEMP: remove after use
+app.get('/api/reset-admin-temp', (_req, res) => {
   const bcrypt = require('bcryptjs');
   db.prepare('UPDATE admin_users SET password_hash=? WHERE username=?')
     .run(bcrypt.hashSync('Admin123!', 10), 'admin');
   res.json({ ok: true });
+});
+
+app.listen(PORT, () => {
+  console.log(`Day Stars API running on http://localhost:${PORT}`);
 });
