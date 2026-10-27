@@ -32,13 +32,6 @@ app.use('/api/contact', contactRoutes);
 
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 
-// TEMP: remove after use
-app.get('/api/reset-admin-temp', (_req, res) => {
-  const bcrypt = require('bcryptjs');
-  db.prepare('UPDATE admin_users SET password_hash=? WHERE username=?')
-    .run(bcrypt.hashSync('Admin123!', 10), 'admin');
-  res.json({ ok: true });
-});
 
 app.listen(PORT, () => {
   console.log(`Day Stars API running on http://localhost:${PORT}`);
