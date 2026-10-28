@@ -75,10 +75,6 @@ export default function AdminLogin() {
             {loading ? 'Signing in…' : 'Sign In'}
           </button>
         </form>
-        <div className="mt-6 p-4 bg-gray-50 rounded-xl text-xs text-gray-500 text-center">
-          Default credentials: <strong>admin</strong> / <strong>Admin123!</strong><br />
-          Change your password after first login.
-        </div>
       </div>
     </div>
   );
