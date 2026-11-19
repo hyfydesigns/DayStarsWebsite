@@ -12,6 +12,10 @@ const navLinks = [
   { label: 'Contact', to: '/contact' },
 ];
 
+const externalLinks = [
+  { label: 'Adult Daycare Services', href: 'https://www.daystarsaac.com/' },
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -52,6 +56,17 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            {externalLinks.map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
 
           {/* CTA */}
@@ -88,6 +103,17 @@ export default function Navbar() {
               >
                 {link.label}
               </Link>
+            ))}
+            {externalLinks.map(link => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              >
+                {link.label}
+              </a>
             ))}
             <div className="pt-2 pb-1 border-t border-gray-100 mt-2 flex flex-col gap-2">
               <a href={`tel:${(content['contact.main_line'] || '2819037691').replace(/\D/g, '')}`} className="flex items-center gap-2 px-4 py-3 text-sm text-gray-600">
