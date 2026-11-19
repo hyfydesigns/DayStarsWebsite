@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Printer } from 'lucide-react';
 import { fetchContent } from '../api/client';
 import api from '../api/client';
 import type { SiteContent } from '../api/client';
@@ -68,6 +68,17 @@ export default function Contact() {
                     <Phone size={20} className="text-primary-600" />
                   </div>
                   <div>
+                    <div className="font-semibold text-gray-900 mb-1">Main Line</div>
+                    <a href={`tel:${(c['contact.main_line'] || '2819037691').replace(/\D/g, '')}`} className="text-gray-600 hover:text-primary-600 transition-colors">
+                      {c['contact.main_line'] || '(281) 903-7691'}
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Phone size={20} className="text-primary-600" />
+                  </div>
+                  <div>
                     <div className="font-semibold text-gray-900 mb-1">24/7 Crisis Support Line</div>
                     <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="text-gray-600 hover:text-primary-600 transition-colors">
                       {c['contact.phone'] || '281-903-7691'}
@@ -87,6 +98,15 @@ export default function Contact() {
                     </div>
                   </div>
                 )}
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <Printer size={20} className="text-primary-600" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900 mb-1">Fax</div>
+                    <span className="text-gray-600">{c['contact.fax'] || '(832) 532-7236'}</span>
+                  </div>
+                </div>
                 <div className="flex items-start gap-4">
                   <div className="w-11 h-11 bg-primary-50 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Mail size={20} className="text-primary-600" />
