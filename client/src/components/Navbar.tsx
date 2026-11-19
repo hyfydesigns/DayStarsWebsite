@@ -7,14 +7,11 @@ import type { SiteContent } from '../api/client';
 const navLinks = [
   { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
+  { label: 'Adult Daycare Services', href: 'https://www.daystarsaac.com/', external: true },
   { label: 'About Us', to: '/about' },
   { label: 'FAQs', to: '/faqs' },
   { label: 'Contact', to: '/contact' },
-];
-
-const externalLinks = [
-  { label: 'Adult Daycare Services', href: 'https://www.daystarsaac.com/' },
-];
+] as const;
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -44,28 +41,21 @@ export default function Navbar() {
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === link.to
-                    ? 'text-primary-600 bg-primary-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            {externalLinks.map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-              >
-                {link.label}
-              </a>
+              'external' in link ? (
+                <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.to} to={link.to}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    location.pathname === link.to
+                      ? 'text-primary-600 bg-primary-50'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                  }`}>
+                  {link.label}
+                </Link>
+              )
             ))}
           </div>
 
@@ -92,28 +82,21 @@ export default function Navbar() {
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
           <div className="px-4 py-3 space-y-1">
             {navLinks.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === link.to
-                    ? 'text-primary-600 bg-primary-50'
-                    : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            {externalLinks.map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-              >
-                {link.label}
-              </a>
+              'external' in link ? (
+                <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer"
+                  className="block px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.to} to={link.to}
+                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    location.pathname === link.to
+                      ? 'text-primary-600 bg-primary-50'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}>
+                  {link.label}
+                </Link>
+              )
             ))}
             <div className="pt-2 pb-1 border-t border-gray-100 mt-2 flex flex-col gap-2">
               <a href={`tel:${(content['contact.main_line'] || '2819037691').replace(/\D/g, '')}`} className="flex items-center gap-2 px-4 py-3 text-sm text-gray-600">
