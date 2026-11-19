@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ArrowRight, Printer } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { fetchContent } from '../api/client';
 import type { SiteContent } from '../api/client';
@@ -77,6 +77,13 @@ export default function Footer() {
               <li className="flex items-start gap-2 text-gray-400">
                 <Phone size={15} className="mt-0.5 flex-shrink-0 text-primary-400" />
                 <div>
+                  <div className="text-xs text-gray-500 mb-0.5">Main Line</div>
+                  <a href={`tel:${(c['contact.main_line'] || '2819037691').replace(/\D/g, '')}`} className="hover:text-white transition-colors">{c['contact.main_line'] || '(281) 903-7691'}</a>
+                </div>
+              </li>
+              <li className="flex items-start gap-2 text-gray-400">
+                <Phone size={15} className="mt-0.5 flex-shrink-0 text-primary-400" />
+                <div>
                   <div className="text-xs text-gray-500 mb-0.5">24/7 Crisis Line</div>
                   <a href={`tel:${(c['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="hover:text-white transition-colors">{c['contact.phone'] || '281-903-7691'}</a>
                 </div>
@@ -87,6 +94,15 @@ export default function Footer() {
                   <div>
                     <div className="text-xs text-gray-500 mb-0.5">Business Cell</div>
                     <a href={`tel:${c['contact.business_cell'].replace(/\D/g, '')}`} className="hover:text-white transition-colors">{c['contact.business_cell']}</a>
+                  </div>
+                </li>
+              )}
+              {(c['contact.fax'] || '(832) 532-7236') && (
+                <li className="flex items-start gap-2 text-gray-400">
+                  <Printer size={15} className="mt-0.5 flex-shrink-0 text-primary-400" />
+                  <div>
+                    <div className="text-xs text-gray-500 mb-0.5">Fax</div>
+                    <span>{c['contact.fax'] || '(832) 532-7236'}</span>
                   </div>
                 </li>
               )}

@@ -67,8 +67,8 @@ export default function FAQs() {
             <h3 className="font-display font-bold text-gray-900 text-xl mb-3">Still Have Questions?</h3>
             <p className="text-gray-600 mb-6">Contact us to learn more about our services, eligibility, or the enrollment process.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
-              <a href={`tel:${(content['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-3 rounded-full transition-colors text-sm flex items-center gap-2">
-                <Phone size={15} /> {content['contact.phone'] || '281-903-7691'}
+              <a href={`tel:${(content['contact.main_line'] || '2819037691').replace(/\D/g, '')}`} className="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-3 rounded-full transition-colors text-sm flex items-center gap-2">
+                <Phone size={15} /> {content['contact.main_line'] || '(281) 903-7691'}
               </a>
               <a href="mailto:info@daystarsinc.com" className="border border-primary-300 text-primary-600 font-semibold px-6 py-3 rounded-full hover:bg-primary-100 transition-colors text-sm">
                 info@daystarsinc.com

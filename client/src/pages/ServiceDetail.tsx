@@ -154,8 +154,8 @@ export default function ServiceDetail() {
                   Contact our team today to learn more about this service and how we can help you or your loved one.
                 </p>
                 <div className="space-y-3">
-                  <a href={`tel:${(content['contact.phone'] || '281-903-7691').replace(/\D/g, '')}`} className="flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-5 py-3 rounded-full text-sm hover:bg-primary-50 transition-colors w-full">
-                    <Phone size={15} /> Call {content['contact.phone'] || '281-903-7691'}
+                  <a href={`tel:${(content['contact.main_line'] || '2819037691').replace(/\D/g, '')}`} className="flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-5 py-3 rounded-full text-sm hover:bg-primary-50 transition-colors w-full">
+                    <Phone size={15} /> Call {content['contact.main_line'] || '(281) 903-7691'}
                   </a>
                   <Link to="/contact" className="flex items-center justify-center gap-2 bg-white/10 border border-white/30 text-white font-semibold px-5 py-3 rounded-full text-sm hover:bg-white/20 transition-colors w-full">
                     Send a Message
